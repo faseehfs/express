@@ -1,0 +1,10 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body{
+    width: 100%;
+    max-width: 36rem;
+    margin: auto;
+    padding: 1rem;
+}
