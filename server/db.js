@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -7,12 +7,20 @@ const connection = mysql.createConnection({
   database: "express_db",
 });
 
-connection.connect((err) => {
+const schema = `CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+)`;
+
+connection.query(schema, (err, results, fields) => {
   if (err) {
-    console.error("Database connection failed:", err);
-    process.exit(1); // stop app if DB unavailable
+    console.log("Database connection failed:", err);
+  } else {
+    console.log("Database connected.");
   }
-  console.log("Connected to MySQL");
 });
 
 module.exports = connection;
