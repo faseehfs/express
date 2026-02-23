@@ -7,8 +7,9 @@ router.get("/hello", (req, res) => {
 });
 
 router.get("/all-users", (req, res) => {
-  connection.query("SELECT * FROM users", (err, rows, fields) => {
-    res.json({ rows: rows });
+  connection.query("SELECT username FROM users", (err, rows, fields) => {
+    const usernames = rows.map((row) => row.username);
+    res.json({ usernames: usernames });
   });
 });
 
