@@ -18,11 +18,29 @@
       <label for="password">Password:</label><br />
       <input type="text" id="password" name="password" /><br /><br />
 
-      <button class="button" type="submit">Submit</button>
+      <button id="signupFormSubmitButton" class="button" type="submit" disabled>
+        Submit
+      </button>
     </form>
 
     <script>
       const signupForm = document.getElementById("signupForm");
+      const signupBtn = document.getElementById("signupFormSubmitButton");
+      const inputs = signupForm.querySelectorAll("input");
+
+      inputs.forEach((input) => {
+        input.addEventListener("input", () => {
+          let allFilled = true;
+
+          inputs.forEach((input) => {
+            if (input.value.length < 3) {
+              allFilled = false;
+            }
+          });
+
+          signupBtn.disabled = !allFilled;
+        });
+      });
 
       signupForm.addEventListener("submit", function (event) {
         event.preventDefault();
