@@ -16,6 +16,10 @@ const schema = `CREATE TABLE IF NOT EXISTS users (
 )`;
 
 connection.query(schema, (err, results, fields) => {
+  // The query() method takes the query to execute and a function which should
+  // be called after executing the query.
+  // It calls the given function with three positional arguments.
+
   if (err) {
     console.log("Database connection failed:", err);
   } else {
@@ -24,3 +28,12 @@ connection.query(schema, (err, results, fields) => {
 });
 
 module.exports = connection;
+
+// Without exporting, functions and variables are not accessible from other
+// modules.
+// Here, we are exporting the "connection" object, which can be imported from
+// other modules by "const connection = require('path-to-this-file')".
+
+// If we export multiple stuff, they will come as an "object".
+// We need to unpack them, like this:
+// const { add, sub } = require('./math');
