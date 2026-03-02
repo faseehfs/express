@@ -86,7 +86,7 @@
 
           const errorP = document.getElementById("errorP");
           errorP.style.display = "block";
-          errorP.textContent = data.error;
+          errorP.innerHTML = `Server response: ${data.error}<br>Try using another username.`;
         }
       });
     </script>
