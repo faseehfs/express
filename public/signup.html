@@ -10,13 +10,23 @@
     <h1>Signup</h1>
     <form id="signupForm">
       <label for="username">Username:</label><br />
-      <input type="text" id="username" name="username" /><br />
+      <input
+        type="text"
+        id="username"
+        name="username"
+        autocomplete="name"
+      /><br />
 
       <label for="email">Email:</label><br />
-      <input type="text" id="email" name="email" /><br />
+      <input type="email" id="email" name="email" autocomplete="email" /><br />
 
       <label for="password">Password:</label><br />
-      <input type="text" id="password" name="password" /><br />
+      <input
+        type="password"
+        id="password"
+        name="password"
+        autocomplete="new-password"
+      /><br />
 
       <p id="errorP" style="color: red; display: none"></p>
 

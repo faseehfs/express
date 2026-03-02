@@ -27,7 +27,7 @@ router.post("/new-user", (req, res) => {
       (err, rows, fields) => {
         if (err) {
           return res.status(400).json({
-            error: "Database error.",
+            error: "Invalid details.",
           });
         }
 
