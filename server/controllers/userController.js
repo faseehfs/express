@@ -33,4 +33,26 @@ async function getPasswordHash(req, res, next) {
   }
 }
 
-module.exports = { getAllUsers, createNewUser, getPasswordHash };
+async function login(req, res, next) {
+  try {
+    const { username, password } = req.body;
+    const storedHash = await userModel.getPasswordHash(username);
+
+    if (!storedHash) {
+      return res.status(400).json({ error: "Invalid username or password" });
+    }
+
+    const isMatch = await bcrypt.compare(password, storedHash);
+
+    if (isMatch) {
+      req.session.username = username;
+      res.json({ message: "Success." });
+    } else {
+      res.status(400).json({ error: "Invalid username or password" });
+    }
+  } catch (err) {
+    res.status(400).json({ error: "An error occurred." });
+  }
+}
+
+module.exports = { getAllUsers, createNewUser, getPasswordHash, login };

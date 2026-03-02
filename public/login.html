@@ -7,14 +7,40 @@
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
-    <h1>Login</h1>
-    <p>
-      The log in page is work-in-progress. Click the "See All Users" button to
-      view your name there, or click the "Go Home" button to go back.
-    </p>
-    <div class="button-group">
-      <a class="button" href="/">Go Home</a>
-      <a class="button" href="api/user/all">See All Users</a>
-    </div>
+    <h2>Login</h2>
+    <input type="text" id="username" placeholder="Username" required />
+    <br /><br />
+    <input type="password" id="password" placeholder="Password" required />
+    <br /><br />
+    <button id="loginBtn" class="button">Login</button>
+
+    <script>
+      document
+        .getElementById("loginBtn")
+        .addEventListener("click", async () => {
+          const username = document.getElementById("username").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const res = await fetch("../api/user/login", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ username, password }),
+            });
+
+            const data = await res.json();
+
+            if (res.ok) {
+              alert("Login successful!");
+              window.location.href = "/";
+            } else {
+              alert("Error: " + data.error);
+            }
+          } catch (err) {
+            console.error(err);
+            alert("Network error");
+          }
+        });
+    </script>
   </body>
 </html>
