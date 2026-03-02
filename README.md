@@ -21,5 +21,6 @@ This is a minimal Express application which demonstrates user authentication. It
 
 ## Resources
 
-- <https://expressjs.com/>
-- <https://expressjs.com/en/starter/examples.html>
+- Express: <https://expressjs.com/>
+- Express examples: <https://expressjs.com/en/starter/examples.html>
+- Middleware functions: <https://expressjs.com/en/guide/using-middleware.html>
