@@ -18,3 +18,8 @@ This is a minimal Express application which demonstrates user authentication. It
 
 - You should install `mysql2`, not `mysql`. Run `npm install mysql2`. Click [here](https://sidorares.github.io/node-mysql2/docs) to view the docs.
 - Use Vercel to host this website for free.
+
+## Resources
+
+- <https://expressjs.com/>
+- <https://expressjs.com/en/starter/examples.html>
