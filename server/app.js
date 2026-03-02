@@ -21,6 +21,11 @@ const PORT = 3000;
 // Middleware:
 
 app.use(express.json());
+
+// express.json() reads the req.body, parses it into an JavaScript object, and
+// sets req.body = that parsed object.
+// NOTE: It only parses requests with Content-Type: application/json.
+
 app.use(express.static(path.join(__dirname, "../public")));
 
 // The above middleware functions has no mount path, meaning they will execute
