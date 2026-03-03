@@ -18,6 +18,7 @@ async function createNewUser(req, res, next) {
       req.body.email,
       hash,
     );
+    req.session.username = req.body.username;
     res.json({ message: "User created" });
   } catch (err) {
     next(err);
@@ -57,9 +58,18 @@ async function login(req, res, next) {
   }
 }
 
+async function isLoggedIn(req, res, next) {
+  if (req.session.username) {
+    res.json({ isLoggedIn: true });
+  } else {
+    res.json({ isLoggedIn: false });
+  }
+}
+
 module.exports = {
   getAllUsers,
   createNewUser,
   getUserDetails,
   login,
+  isLoggedIn,
 };

@@ -15,6 +15,17 @@
     <button id="loginBtn" class="button">Login</button>
 
     <script>
+      async function redirectIfAlreadyLoggedIn() {
+        const response = await fetch("/api/user/is-logged-in");
+        const data = await response.json();
+        if (data.isLoggedIn) {
+          console.log("Logged in");
+          window.location.href = "/home.html";
+        }
+      }
+
+      redirectIfAlreadyLoggedIn();
+
       document
         .getElementById("loginBtn")
         .addEventListener("click", async () => {
