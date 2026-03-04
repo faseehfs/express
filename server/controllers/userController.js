@@ -71,6 +71,16 @@ async function isLoggedIn(req, res, next) {
   }
 }
 
+async function deleteUser(req, res, next) {
+  const rowCount = await userModel.deleteUser(req.body.username);
+
+  if (rowCount === 0) {
+    return res.status(404).json({ error: "User not found." });
+  }
+
+  return res.json({ message: "Success." });
+}
+
 module.exports = {
   getAllUsers,
   createNewUser,
@@ -78,4 +88,5 @@ module.exports = {
   login,
   isLoggedIn,
   logout,
+  deleteUser,
 };

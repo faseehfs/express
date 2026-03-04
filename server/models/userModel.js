@@ -32,4 +32,12 @@ async function getUserDetails(username) {
   }
 }
 
-module.exports = { getAllUsers, createNewUser, getUserDetails };
+async function deleteUser(username) {
+  const result = await pool.query("DELETE FROM users WHERE username = $1", [
+    username,
+  ]);
+
+  return result.rowCount;
+}
+
+module.exports = { getAllUsers, createNewUser, getUserDetails, deleteUser };

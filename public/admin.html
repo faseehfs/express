@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <h1>Admin Panel</h1>
+    <p>Hey, you you have the permission to be here?</p>
+    <form id="deleteUserForm">
+      <h2>Delete User</h2>
+      <label for="username">Username:</label>
+      <input name="username" />
+      <p id="deleteUserStatus"></p>
+      <button type="submit" class="button">Delete</button>
+    </form>
+
+    <script>
+      console.log("The script is working.");
+
+      const deleteUserForm = document.getElementById("deleteUserForm");
+      const deleteUserStatus = document.getElementById("deleteUserStatus");
+
+      deleteUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(deleteUserForm);
+        const username = formData.get("username");
+
+        const response = await fetch("api/user/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username }),
+        });
+
+        if (response.ok) {
+          deleteUserStatus.textContent = `${username} was successfully deleted.`;
+        } else {
+          deleteUserStatus.textContent = `The user ${username} does not exist.`;
+        }
+      });
+    </script>
+  </body>
+</html>

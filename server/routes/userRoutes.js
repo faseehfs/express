@@ -8,5 +8,6 @@ router.get("/is-logged-in", userController.isLoggedIn);
 router.get("/logout", userController.logout);
 router.post("/new", userController.createNewUser);
 router.post("/login", userController.login);
+router.post("/delete", userController.deleteUser);
 
 module.exports = router;
