@@ -10,23 +10,23 @@
     <h1>Admin Panel</h1>
     <p>Hey, you you have the permission to be here?</p>
 
-    <h2>Some actions</h2>
+    <h2>Actions</h2>
+    <p>Here are some actions that you can perform:</p>
+    <br />
     <a class="button" href="/api/user/all">See All Users</a>
     <a class="button button-danger" href="/api/user/delete-all"
       >Delete All Users</a
     >
 
     <form id="deleteUserForm">
-      <h2>Delete user</h2>
-      <label for="username">Username:</label>
-      <input name="username" />
+      <br />
+      <p>Delete user:</p>
+      <input name="username" placeholder="Username" />
       <p id="deleteUserStatus"></p>
       <button type="submit" class="button">Delete</button>
     </form>
 
     <script>
-      console.log("The script is working.");
-
       const deleteUserForm = document.getElementById("deleteUserForm");
       const deleteUserStatus = document.getElementById("deleteUserStatus");
 
