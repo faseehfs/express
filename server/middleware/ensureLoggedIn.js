@@ -1,4 +1,4 @@
-function restrict(req, res, next) {
+function ensureLoggedIn(req, res, next) {
   if (req.session.username) {
     next();
   } else {
@@ -6,4 +6,4 @@ function restrict(req, res, next) {
   }
 }
 
-module.exports = restrict;
+module.exports = ensureLoggedIn;
