@@ -57,9 +57,6 @@
 
       // Submit form
       signupForm.addEventListener("submit", async function (event) {
-        // Here, if we use an arrow function, we can't access signupForm inside.
-        // But we need signupForm to get formData. So we use a regular function.
-
         event.preventDefault();
 
         const formData = new FormData(signupForm);
@@ -71,7 +68,7 @@
           // The .get() method looks for the "name" attribute, not the "id".
         };
 
-        const response = await fetch("api/user/new", {
+        const response = await fetch("/api/user/new", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -80,7 +77,7 @@
         });
 
         if (response.ok) {
-          window.location = "/home.html";
+          window.location = "/home";
         } else {
           const data = await response.json();
 

@@ -6,7 +6,9 @@ async function getAllUsers(req, res, next) {
     const users = await userModel.getAllUsers();
     res.json(users);
   } catch (err) {
-    res.status(400).json({ error: "The server encountered an error." });
+    res.status(400).json({
+      error: "The server encountered an error white getting all users.",
+    });
   }
 }
 
@@ -21,7 +23,9 @@ async function createNewUser(req, res, next) {
     req.session.username = req.body.username;
     res.json({ message: "User created" });
   } catch (err) {
-    next(err);
+    res
+      .status(400)
+      .json({ error: "An error occured while creating new user." });
   }
 }
 
@@ -35,27 +39,23 @@ async function getUserDetails(req, res, next) {
 }
 
 async function login(req, res, next) {
-  try {
-    const { username, password } = req.body;
-    const userDetails = await userModel.getUserDetails(username);
-    const storedHash = userDetails.password_hash;
-    console.log(storedHash);
+  const { username, password } = req.body;
 
-    if (!storedHash) {
-      return res.status(400).json({ error: "Invalid username or password" });
-    }
+  const userDetails = await userModel.getUserDetails(username);
 
-    const isMatch = await bcrypt.compare(password, storedHash);
-
-    if (isMatch) {
-      req.session.username = username;
-      res.json({ message: "Success." });
-    } else {
-      res.status(400).json({ error: "Invalid username or password" });
-    }
-  } catch (err) {
-    res.status(400).json({ error: "An error occurred." });
+  if (userDetails == null) {
+    return res.status(400).json({ error: "Username is invalid." });
   }
+
+  const storedHash = userDetails.password_hash;
+  const isMatch = await bcrypt.compare(password, storedHash);
+
+  if (!isMatch) {
+    return res.status(400).json({ error: "Password is incorrect." });
+  }
+
+  req.session.username = username;
+  res.json({ message: "Success." });
 }
 
 async function logout(req, res, next) {

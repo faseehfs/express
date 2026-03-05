@@ -22,14 +22,11 @@ async function createNewUser(username, email, password_hash) {
 }
 
 async function getUserDetails(username) {
-  try {
-    const result = await pool.query("SELECT * FROM users WHERE username = $1", [
-      username,
-    ]);
-    return result.rows[0];
-  } catch (err) {
-    throw err;
-  }
+  const result = await pool.query("SELECT * FROM users WHERE username = $1", [
+    username,
+  ]);
+
+  return result.rows[0] ?? null;
 }
 
 async function deleteUser(username) {

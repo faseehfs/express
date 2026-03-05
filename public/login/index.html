@@ -20,7 +20,7 @@
         const data = await response.json();
         if (data.isLoggedIn) {
           console.log("Logged in");
-          window.location.href = "/home.html";
+          window.location.href = "/home";
         }
       }
 
@@ -42,7 +42,7 @@
             const data = await res.json();
 
             if (res.ok) {
-              window.location.href = "/home.html";
+              window.location.href = "/home";
             } else {
               alert("Error: " + data.error);
             }
