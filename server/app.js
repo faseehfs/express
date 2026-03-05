@@ -23,7 +23,7 @@ app.use(express.json());
 // sets req.body = that parsed object.
 // NOTE: It only parses requests with Content-Type: application/json.
 
-app.use(express.static(path.join(__dirname, "../public")));
+app.use(express.static(path.join(__dirname, "public")));
 
 // express.static(path) middleware serves static files in the path.
 // If a matching file is found, it ends the request-response cycle.
