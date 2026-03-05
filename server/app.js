@@ -7,6 +7,7 @@ require("dotenv").config();
 
 const express = require("express");
 const path = require("path");
+const errorHandler = require("./middleware/errorHandler");
 const session = require("express-session");
 
 // You can import modules either by require (CommonJS) or import (ES6).
@@ -38,6 +39,8 @@ app.use(
 );
 
 app.use("/api", require("./routes"));
+
+app.use(errorHandler);
 
 app.listen(PORT, () => {
   console.log(`Running on http://localhost:${PORT}`);

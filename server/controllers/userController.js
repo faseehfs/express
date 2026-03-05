@@ -23,7 +23,7 @@ async function createNewUser(req, res, next) {
 
 async function getUserDetails(req, res, next) {
   try {
-    const userDetails = await userModel.getUserDetails(req.session.userId);
+    const userDetails = await userModel.getUserById(req.session.userId);
     res.json({ user_details: userDetails });
   } catch (err) {
     console.log(err);
@@ -34,7 +34,7 @@ async function getUserDetails(req, res, next) {
 async function login(req, res, next) {
   const { username, password } = req.body;
 
-  const userDetails = await userModel.getUserDetailsFromUsername(username);
+  const userDetails = await userModel.getUserByUsername(username);
 
   if (userDetails === null) {
     return res.status(400).json({ error: "Username is invalid." });

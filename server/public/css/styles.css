@@ -6,11 +6,15 @@
   --background: #fff;
   --panel-background: #dcdcdc;
   --text: #020202;
+
   --primary: #105a80;
   --primary-dark: #0f5274;
   --primary-darker: #0c4460;
   --primary-disabled: #cacaca;
   --primary-text: #fff;
+
+  --danger: #fe2f2f;
+  --danger-dark: #ea2b2b;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -18,11 +22,15 @@
     --background: #242424;
     --panel-background: #383838;
     --text: #e4e4e4;
+
     --primary: #78c2dc;
     --primary-dark: #66abc4;
     --primary-darker: #5c9cb3;
     --primary-disabled: #909090;
     --primary-text: #030303;
+
+    --danger: rgb(255, 125, 125);
+    --danger-dark: rgb(232, 104, 104);
   }
 }
 
@@ -63,10 +71,26 @@ body {
   cursor: default;
 }
 
+.button-danger {
+  background-color: var(--danger);
+}
+
+.button-danger:hover {
+  background-color: var(--danger-dark);
+}
+
+.button-danger:active {
+  background-color: var(--danger-dark);
+}
+
 .button-group {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
+}
+
+.danger-color {
+  color: var(--danger)
 }
 
 input {

@@ -21,7 +21,7 @@ async function createNewUser(username, email, password_hash) {
   return result.rows[0];
 }
 
-async function getUserDetails(userId) {
+async function getUserById(userId) {
   const result = await pool.query("SELECT * FROM users WHERE id = $1", [
     userId,
   ]);
@@ -29,7 +29,7 @@ async function getUserDetails(userId) {
   return result.rows[0] ?? null;
 }
 
-async function getUserDetailsFromUsername(username) {
+async function getUserByUsername(username) {
   const result = await pool.query("SELECT * FROM users WHERE username = $1", [
     username,
   ]);
@@ -62,8 +62,8 @@ module.exports = {
   deleteAllUsers,
   getAllUsers,
   createNewUser,
-  getUserDetails,
+  getUserById,
   deleteUser,
-  getUserDetailsFromUsername,
+  getUserByUsername,
   getUsernameFromEmail,
 };

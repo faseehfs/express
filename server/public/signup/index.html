@@ -28,7 +28,7 @@
         autocomplete="new-password"
       /><br />
 
-      <p id="errorP" style="color: red; display: none"></p>
+      <p id="errorP" class="danger-color" style="display: none"></p>
 
       <button id="signupFormSubmitButton" class="button" type="submit" disabled>
         Submit
@@ -83,7 +83,7 @@
 
           const errorP = document.getElementById("errorP");
           errorP.style.display = "block";
-          errorP.innerHTML = `Server response: ${data.error}<br>Try using another username.`;
+          errorP.innerHTML = `Failed to create new account. Try using an alternate email or password.`;
         }
       });
     </script>
