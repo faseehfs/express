@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Delete user</title>
+    <link rel="stylesheet" href="/css/styles.css" />
+  </head>
+  <body>
+    <h1>Delete user</h1>
+    <form id="deleteUserForm">
+      <label for="username">Username</label>
+      <input name="username" />
+      <button type="submit" class="button">Delete</button>
+    </form>
+
+    <script>
+      const deleteUserForm = document.getElementById("deleteUserForm");
+
+      deleteUserForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
+        const username = deleteUserForm.username.value;
+
+        const response = await fetch("/api/user/delete", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username: username }),
+        });
+
+        const data = await response.json();
+        console.log(data);
+      });
+    </script>
+  </body>
+</html>
