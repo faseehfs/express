@@ -10,10 +10,10 @@
     <h2>Login</h2>
     <form id="loginForm">
       <label>Username</label>
-      <input type="text" name="username" required />
+      <input type="text" name="username" />
 
       <label>Password</label>
-      <input type="password" name="password" required />
+      <input type="password" name="password" />
 
       <button type="submit" class="button">Login</button>
     </form>
@@ -23,41 +23,29 @@
         const response = await fetch("/api/user/is-logged-in");
         const data = await response.json();
         if (data.isLoggedIn) {
-          console.log("Logged in");
+          alert("You are already logged in.");
           window.location.href = "/home";
         }
       }
 
       redirectIfAlreadyLoggedIn();
 
-      document
-        .getElementById("loginForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault();
+      const loginForm = document.getElementById("loginForm");
 
-          const form = e.target;
-          const username = form.username.value;
-          const password = form.password.value;
+      loginForm.addEventListener("submit", async (event) => {
+        event.preventDefault();
 
-          try {
-            const res = await fetch("/api/user/login", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ username, password }),
-            });
+        const username = loginForm.username.value;
+        const password = loginForm.password.value;
 
-            const data = await res.json();
-
-            if (res.ok) {
-              window.location.href = "/home";
-            } else {
-              alert("Error: " + data.error);
-            }
-          } catch (err) {
-            console.error(err);
-            alert("Network error");
-          }
+        response = await fetch("/api/user/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ username, password }),
         });
+
+        console.log(await response.json());
+      });
     </script>
   </body>
 </html>
