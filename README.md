@@ -1,6 +1,6 @@
 # Express
 
-Don't forget to run `npm run init-db` to initialize the database.
+A minimal Express + Postgres template with user authentication.
 
 ## Project Structure
 
