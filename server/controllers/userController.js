@@ -7,18 +7,28 @@ async function getAllUsers(req, res, next) {
 }
 
 async function createNewUser(req, res, next) {
-  const { username, email, password } = req.body;
+  try {
+    const { username, email, password } = req.body;
 
-  if (!username || !email || !password) {
-    return res
-      .status(400)
-      .json({ error: "Username, email, and password are required." });
+    if (!username || !email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Username, email, and password are required." });
+    }
+
+    const password_hash = await bcrypt.hash(password, 10);
+    const user = await userModel.createNewUser(username, email, password_hash);
+    req.session.userId = user.id;
+    res.json({ message: "User created" });
+  } catch (err) {
+    if (err.code === "23505") {
+      // PostgreSQL unique violation
+      return res
+        .status(409)
+        .json({ error: "Username or email already exists" });
+    }
+    next(err);
   }
-
-  const password_hash = await bcrypt.hash(password, 10);
-  const user = await userModel.createNewUser(username, email, password_hash);
-  req.session.userId = user.id;
-  res.json({ message: "User created" });
 }
 
 async function getUserDetails(req, res, next) {
