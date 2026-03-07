@@ -1,66 +1,70 @@
-# Project Structure Reference
+# Project structure reference
 
-Note: This is only for reference, this template may not strictly use these templates.
+Note: This is only for reference, this template may not strictly use the structures given below.
 
-## Option 1: layered architecture (small to medium apps)
+## Options
+
+There are multiple ways to structure a project. Two common methods are given below.
+
+### Option 1: layered architecture (small to medium apps)
 
 ```
 project-root/
 ├── backend/
 │   ├── src/
-│   │   ├── config/            # App configuration (env variables, DB config)
+│   │   ├── config/
 │   │   │   ├── db.js
 │   │   │   └── index.js
-│   │   ├── controllers/       # Route logic handlers
+│   │   ├── controllers/
 │   │   │   └── userController.js
-│   │   ├── models/            # Database models
+│   │   ├── models/
 │   │   │   └── userModel.js
-│   │   ├── routes/            # Route definitions
+│   │   ├── routes/
 │   │   │   └── userRoutes.js
-│   │   ├── middlewares/       # Custom middlewares (auth, error handling)
+│   │   ├── middlewares/
 │   │   │   ├── authMiddleware.js
 │   │   │   └── errorHandler.js
-│   │   ├── services/          # Business logic, external API calls
+│   │   ├── services/
 │   │   │   └── userService.js
-│   │   ├── utils/             # Utilities/helpers
+│   │   ├── utils/
 │   │   │   └── logger.js
-│   │   ├── app.js             # Express app initialization
-│   │   └── server.js          # Starts the server
+│   │   ├── app.js
+│   │   └── server.js
 │   ├── package.json
 │   └── .env
 │
 ├── frontend/
-│   ├── public/                # Static files (images, favicon, etc.)
+│   ├── public/
 │   ├── src/
-│   │   ├── components/        # React/Vue/Angular components
-│   │   ├── pages/             # Page-level components
-│   │   ├── services/          # API calls
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── services/
 │   │   │   └── api.js
-│   │   ├── utils/             # Utility functions
-│   │   ├── hooks/             # Custom React hooks
+│   │   ├── utils/
+│   │   ├── hooks/
 │   │   ├── App.js
 │   │   └── index.js
 │   ├── package.json
 │   └── .env
 │
-├── docker/                    # Dockerfiles and docker-compose
+├── docker/
 │   ├── backend.Dockerfile
 │   ├── frontend.Dockerfile
 │   └── docker-compose.yml
 │
 ├── .gitignore
 ├── README.md
-└── package.json               # Optional root package.json for monorepo scripts
+└── package.json
 ```
 
-## Option 2: feature-first approach (large apps)
+### Option 2: feature-first approach (large apps)
 
 ```
 project-root/
 ├── backend/
 │   ├── src/
-│   │   ├── config/           # Environment and database configs
-│   │   ├── modules/          # Feature-based modules
+│   │   ├── config/
+│   │   ├── modules/
 │   │   │   ├── auth/
 │   │   │   │   ├── auth.controller.js
 │   │   │   │   ├── auth.service.js
@@ -72,7 +76,7 @@ project-root/
 │   │   │   │   ├── users.routes.js
 │   │   │   │   └── users.model.js
 │   │   │   └── products/
-│   │   │       └── ...      # Same pattern
+│   │   │       └── ... # Same pattern
 │   │   ├── middlewares/
 │   │   ├── utils/
 │   │   ├── app.js
@@ -82,15 +86,41 @@ project-root/
 │
 ├── frontend/
 │   ├── src/
-│   │   ├── modules/          # Mirror backend feature modules
+│   │   ├── modules/
 │   │   │   ├── auth/
 │   │   │   │   ├── components/
 │   │   │   │   ├── pages/
 │   │   │   │   └── api.js
 │   │   │   ├── users/
 │   │   │   └── products/
-│   │   ├── common/           # Shared components/utilities
+│   │   ├── common/
 │   │   └── App.js
 │   └── package.json
 └── README.md
 ```
+
+## Common folder naming convensions
+
+### config/
+
+Stores configuration code and settings used by the application, such as database connections, environment variables, or API settings. These files provide shared configuration that other parts of the application import.
+
+### controllers/
+
+Handles HTTP request and response logic. Controllers read request data (req.body, req.params), call services or models, and send responses (res.json, res.status). They act as the bridge between routes and the rest of the application.
+
+### models/
+
+Contains database-related code. Models perform queries such as creating, reading, updating, and deleting data. Each model usually corresponds to a database table and provides functions for interacting with stored data.
+
+### routes/
+
+Contains URL definitions and maps HTTP endpoints to controller functions. Route files define which function runs for a given request (for example POST /login or GET /users). They should stay small and mainly connect endpoints to controllers without containing business logic or database code.
+
+### scripts/
+
+Contains standalone programs that are run manually rather than as part of the server. Examples include database initialization, migrations, or data imports. These scripts usually run once or occasionally instead of on every server start.
+
+### services/
+
+Contains business logic and core application behavior. Services implement the actual operations the application performs, such as authentication, validation, or complex processing. They coordinate models and other utilities but do not deal with HTTP requests directly.
