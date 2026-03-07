@@ -35,7 +35,9 @@
           body: JSON.stringify(payload),
         });
 
-        if (!response.ok) {
+        if (response.ok) {
+          console.log("Ok");
+        } else {
           const data = await response.json();
           console.log(data.error);
         }
