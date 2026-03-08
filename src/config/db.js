@@ -7,12 +7,12 @@ const pool = new Pool({
     : { rejectUnauthorized: false },
 });
 
+// Test the connection
 (async () => {
   try {
     await pool.query("SELECT 1");
-    console.log("Database connection successful");
   } catch (err) {
-    console.error("Failed to connect to the database", err);
+    console.error("Failed to connect to the database:", err);
     process.exit(1);
   }
 })();

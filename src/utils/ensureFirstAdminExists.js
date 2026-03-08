@@ -12,8 +12,6 @@ async function ensureFirstAdminExists() {
       "admin",
     );
     console.log("Created 'admin'");
-  } else {
-    console.log("'admin' already exists");
   }
 }
 
