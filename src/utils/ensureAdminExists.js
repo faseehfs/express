@@ -7,7 +7,7 @@ async function ensureAdminExists() {
   if (!user) {
     userService.createNewUser(
       "admin",
-      "example@example.com",
+      process.env.ADMIN_EMAIL,
       process.env.ADMIN_PASSWORD,
       "admin",
     );
