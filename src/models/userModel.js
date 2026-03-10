@@ -37,11 +37,10 @@ async function getUserByUsername(username) {
   return result.rows[0] ?? null;
 }
 
-async function getUsernameByEmail(email) {
-  const result = await pool.query(
-    "SELECT username FROM users WHERE email = $1",
-    [email],
-  );
+async function getUserByEmail(email) {
+  const result = await pool.query("SELECT * FROM users WHERE email = $1", [
+    email,
+  ]);
 
   return result.rows[0]?.username ?? null;
 }
@@ -65,5 +64,5 @@ module.exports = {
   getUserById,
   deleteUser,
   getUserByUsername,
-  getUsernameByEmail,
+  getUserByEmail,
 };

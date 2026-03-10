@@ -16,20 +16,21 @@ async function createNewUser(req, res, next) {
       .json({ error: "Username, email, and password are required" });
   }
 
-  try {
-    const user = await userService.registerUser(username, email, password);
-
-    req.session.userId = user.id;
-    req.session.role = user.role;
-    res.json({ message: "User created" });
-  } catch (err) {
-    if (err.code === "23505") {
-      return res
-        .status(409)
-        .json({ error: "Username or email already exists" });
-    }
-    next(err);
+  if (await userModel.getUserByUsername(username)) {
+    return res.status(409).json({ error: "Username is already taken" });
   }
+
+  if (await userModel.getUserByEmail(email)) {
+    return res
+      .status(409)
+      .json({ error: "This email is already connected to an account" });
+  }
+
+  const user = await userService.createNewUser(username, email, password);
+
+  req.session.userId = user.id;
+  req.session.role = user.role;
+  res.json({ message: "User created" });
 }
 
 async function getUserDetails(req, res, next) {
